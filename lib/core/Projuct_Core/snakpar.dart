@@ -8,6 +8,7 @@ class ErrorMessager {
         // behavior: SnackBarBehavior.floating,
         padding: EdgeInsets.symmetric(vertical: 20),
         content: CustomText(
+          textAlign: TextAlign.center,
           text: text,
           color: ColorsApp().whiteColor,
           fontsize: CustomSize().fontsize_mediam(context),

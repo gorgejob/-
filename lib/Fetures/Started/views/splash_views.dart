@@ -48,6 +48,7 @@ class _SplashViewsState extends State<SplashViews>
             right: 0,
             left: 0,
             child: CustomText(
+              textAlign: TextAlign.center,
               text: "يرجي الانتظار ......",
               color: ColorsApp().whiteColor,
               fontsize: CustomSize().fontsize_large(context),

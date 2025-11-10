@@ -1,19 +1,21 @@
 import '../../../path.dart';
 class CustomText extends StatelessWidget {
-  const CustomText({
+   CustomText({
     super.key,
     required this.text,
     required this.color,
     required this.fontsize,
+    required this.textAlign ,
   });
   final String text;
   final Color color;
   final double fontsize;
+  TextAlign textAlign ; 
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      textAlign: TextAlign.center,
+      textAlign: textAlign,
       text,
       style: TextStyle(
         color: color,

@@ -34,6 +34,7 @@ class FirstPageWidget extends StatelessWidget {
             ),
             SizedBox(height: 20),
             CustomText(
+              textAlign: TextAlign.center,
               text: text,
               color: ColorsApp().whiteColor,
               fontsize: CustomSize().fontsize_small(context) * 1.2,

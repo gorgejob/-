@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:projucts_helper/Fetures/Started/views/system_secret.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../../path.dart';
 
@@ -25,6 +26,7 @@ class FirstPageViews extends StatelessWidget {
             left: 0,
             right: 0,
             child: CustomText(
+              textAlign: TextAlign.center,
               text: varibles.NameProjuct,
               color: ColorsApp().whiteColor,
               fontsize: CustomSize().fontsize_large(context) * 1.2,
@@ -37,7 +39,12 @@ class FirstPageViews extends StatelessWidget {
               child: Row(
                 children: [
                   FirstPageWidget(
-                    ontap: () {},
+                    ontap: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => SystemSecret()),
+                      );
+                    },
                     text: "سياسية الخصوصية",
                     icon: Icon(CupertinoIcons.lock),
                     coloricon: Colors.yellow,

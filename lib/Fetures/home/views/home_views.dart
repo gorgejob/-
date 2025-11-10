@@ -63,7 +63,7 @@ class _HomeViewsState extends State<HomeViews> {
         ],
       ),
 
-      appBar: AppBar_Home(context, player),
+      appBar: AppBar_Home(context,),
     );
   }
 }

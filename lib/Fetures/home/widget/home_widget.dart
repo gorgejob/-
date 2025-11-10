@@ -20,6 +20,8 @@ class HomeWidget extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 15, horizontal: 5),
         child: Center(
           child: CustomText(
+            textAlign: TextAlign.center,
+
             text: text,
             color: ColorsApp().whiteColor,
             fontsize: CustomSize().fontsize_mediam(context) * 0.9,

@@ -1,10 +1,7 @@
 import '../../../path.dart';
 
 class ListdataInHome extends StatefulWidget {
-  ListdataInHome({
-    super.key,
-    required this.data,
-  });
+  ListdataInHome({super.key, required this.data});
   Musicapp data;
   @override
   State<ListdataInHome> createState() => _ListdataInHomeState();
@@ -24,6 +21,7 @@ class _ListdataInHomeState extends State<ListdataInHome> {
         child: Row(
           children: [
             CustomText(
+              textAlign: TextAlign.center,
               text: widget.data.Name,
               color: ColorsApp().whiteColor,
               fontsize: CustomSize().fontsize_mediam(context),
