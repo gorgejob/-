@@ -1,4 +1,5 @@
-import 'dart:developer';
+import 'package:projucts_helper/core/model/hide.dart';
+
 import '../../../path.dart';
 
 class HomeWidget extends StatelessWidget {
@@ -80,33 +81,81 @@ class SlideState extends State<slide> {
   }
 }
 
-class endpartpage extends StatefulWidget {
-  const endpartpage({super.key});
+class EndPartPage extends StatefulWidget {
+  const EndPartPage({super.key});
 
   @override
-  State<endpartpage> createState() => _endpartpageState();
+  State<EndPartPage> createState() => _EndPartPageState();
 }
 
-class _endpartpageState extends State<endpartpage> {
-  late bool Playing = false;
+class _EndPartPageState extends State<EndPartPage> {
+  bool playing = false;
+
   @override
   void initState() {
     super.initState();
+
+
+    // استماع لحالة المشغل
     audioHandler.player.playerStateStream.listen((event) {
-      if (event.playing) {
-        log("true");
+      final isPlaying = event.playing;
+      if (mounted) {
         setState(() {
-          Playing = true;
+          playing = isPlaying;
         });
-        log(Playing.toString());
-      } else {
-        log("false");
-        setState(() {
-          Playing = false;
-        });
-        log(Playing.toString());
       }
+      debugPrint("Playing: $playing");
     });
+  }
+
+  void _playPause() {
+    final player = audioHandler.player;
+    final duration = player.duration;
+    final index =Index.indexs;
+    if (duration != null) {
+      if (playing) {
+        player.pause();
+      } else {
+        player.play();
+      }
+    } else {
+       audioHandler.setUrl( gorgelistgorge.listg[index].Url, gorgelistgorge.listg[index].Name);
+        player.play();
+    }
+  }
+
+  void _skipNext() {
+    final player = audioHandler.player;
+    final duration = player.duration;
+    final position = player.position;
+
+    if (duration != null && position != null) {
+      if (position >= duration) {
+        playere.nextSong();
+      } else {
+        player.seek(duration);
+      }
+    } else {
+      debugPrint("لا توجد أغنية لتخطيها");
+      ErrorMessager.ErrorMessage(context, "يرجي اختيار اغنية");
+    }
+  }
+
+  void _skipPrevious() {
+    final player = audioHandler.player;
+    final position = player.position;
+    final duration = player.duration;
+
+    if (position != null && duration != null) {
+      if (position.inSeconds.toDouble() == 0) {
+        playere.backSong();
+      } else {
+        player.seek(Duration.zero);
+      }
+    } else {
+      debugPrint("لا توجد أغنية للعودة إليها");
+      ErrorMessager.ErrorMessage(context, "يرجي اختيار اغنية");
+    }
   }
 
   @override
@@ -114,41 +163,26 @@ class _endpartpageState extends State<endpartpage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        // زر السابق
         GestureDetector(
-          onTap: () {
-            if (audioHandler.player.position.inSeconds.toDouble() == 0) {
-              playere.backSong();
-            } else {
-              audioHandler.player.seek(Duration.zero);
-            }
-          },
+          onTap: _skipPrevious,
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100),
               border: Border.all(color: ColorsApp().whiteColor, width: 2),
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.skip_next,
-                color: ColorsApp().whiteColor,
-                size: 35,
-              ),
+            child: const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Icon(Icons.skip_previous, color: Colors.white, size: 35),
             ),
           ),
         ),
-        SizedBox(width: 50),
+
+        const SizedBox(width: 50),
+
+        // زر التشغيل/الإيقاف المؤقت
         GestureDetector(
-          onTap: () {
-            if (audioHandler.player.duration != null) {
-              Playing
-                  ? audioHandler.player.pause()
-                  : audioHandler.player.play();
-            } else {
-              log("false");
-              ErrorMessager.ErrorMessage(context, "يرجي اختيار اغنية");
-            }
-          },
+          onTap: _playPause,
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100),
@@ -157,35 +191,27 @@ class _endpartpageState extends State<endpartpage> {
             child: Padding(
               padding: const EdgeInsets.all(5.0),
               child: Icon(
-                Playing ? Icons.pause : Icons.play_arrow,
+                playing ? Icons.pause : Icons.play_arrow,
                 color: ColorsApp().whiteColor,
                 size: 50,
               ),
             ),
           ),
         ),
-        SizedBox(width: 50),
+
+        const SizedBox(width: 50),
+
+        // زر التالي
         GestureDetector(
-          onTap: () {
-            if (audioHandler.player.position.inSeconds.toDouble() ==
-                audioHandler.player.duration) {
-              playere.nextSong();
-            } else {
-              audioHandler.player.seek(audioHandler.player.duration);
-            }
-          },
+          onTap: _skipNext,
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100),
               border: Border.all(color: ColorsApp().whiteColor, width: 2),
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.skip_previous,
-                color: ColorsApp().whiteColor,
-                size: 35,
-              ),
+            child: const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Icon(Icons.skip_next, color: Colors.white, size: 35),
             ),
           ),
         ),

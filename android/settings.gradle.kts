@@ -21,8 +21,8 @@ dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
         google()
-        maven(url = "https://storage.googleapis.com/download.flutter.io")
         mavenCentral()
+        maven(url = "https://storage.googleapis.com/download.flutter.io")
         mavenLocal()
         gradlePluginPortal()
     }

@@ -1,15 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.projucts_helper">
-
+    <uses-permission android:name="android.permission.INTERNET" />
     <!-- 🔹 الصلاحيات الضرورية لتشغيل الصوت في الخلفية -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
 
     <application
-        android:label="projucts_helper"
-        android:icon="@mipmap/ic_launcher">
+        android:label="مهرجانات 2026"
+        android:icon="@mipmap/launcher_icon">
 
         <!-- 🔹 شاشة البداية (MainActivity) -->
         <activity

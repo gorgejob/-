@@ -31,7 +31,7 @@ class _SplashViewsState extends State<SplashViews>
             top: 200,
             right: 0,
             left: 0,
-            child: Image.asset(varibles.NameProjuct, height: 300),
+            child: Image.asset(varibles.pathImageApp, height: 300),
           ),
           Positioned(
             bottom: 250,

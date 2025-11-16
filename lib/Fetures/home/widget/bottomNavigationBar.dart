@@ -1,4 +1,5 @@
-import 'dart:developer';
+import 'package:projucts_helper/core/model/hide.dart';
+
 import '../../../path.dart';
 
 class Bottomnavigationbar_home extends StatefulWidget {
@@ -28,14 +29,10 @@ class _Bottomnavigationbar_homeState extends State<Bottomnavigationbar_home> {
     super.initState();
     audioHandler.player.processingStateStream.listen((event) {
       if (event == ProcessingState.completed) {
-        log(Index.indexs.toString());
-        log(Musicapp.Music.length.toString());
-
-        if (Index.indexs + 1 == Musicapp.Music.length) {
-          Index.indexs = 0;
-          playere.nextSong();
+        if (Index.indexs + 1 == gorgelistgorge.listg.length) {
+            Index.indexs = 0;
+            playere.nextSong();
         } else {
-          Index.indexs = Index.indexs + 1;
           playere.nextSong();
         }
       }
@@ -54,6 +51,7 @@ class _Bottomnavigationbar_homeState extends State<Bottomnavigationbar_home> {
     return Container(
       height: 210,
       decoration: BoxDecoration(
+        color: Colors.black,
         border: Border(top: BorderSide(color: ColorsApp().whiteColor)),
       ),
       child: Column(
@@ -81,7 +79,7 @@ class _Bottomnavigationbar_homeState extends State<Bottomnavigationbar_home> {
           ),
 
           SizedBox(height: 30),
-          endpartpage(),
+          EndPartPage(),
         ],
       ),
     );

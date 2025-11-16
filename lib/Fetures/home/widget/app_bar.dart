@@ -1,15 +1,33 @@
 import '../../../path.dart';
 
-AppBar AppBar_Home(BuildContext context, ) {
+AppBar AppBar_Home(BuildContext context , TextEditingController? controller , void Function(String)? onChanged) {
   return AppBar(
     shape: Border(bottom: BorderSide(color: ColorsApp().whiteColor)),
     toolbarHeight: 90,
     backgroundColor: Colors.black,
-    title: CustomText(
-      textAlign: TextAlign.center,
-      text: varibles.NameProjuct,
-      color: ColorsApp().whiteColor,
-      fontsize: CustomSize().fontsize_large(context) * 0.89,
+    title: TextField(
+      onChanged: onChanged,
+      controller: controller,
+      style: TextStyle(
+        color: ColorsApp().whiteColor,
+        fontSize: CustomSize().fontsize_small(context) * 1.2,
+        fontWeight: FontWeight.bold,
+      ),
+      decoration: InputDecoration(
+        hintText: "ابحث علي اغنيتك المفضلة",
+        hintStyle: TextStyle(
+          color: ColorsApp().whiteColor,
+          fontSize: CustomSize().fontsize_small(context) * 1.2,
+          fontWeight: FontWeight.bold,
+        ),
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: ColorsApp().whiteColor),
+        ),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: ColorsApp().whiteColor),
+        ),
+      ),
+      cursorColor: ColorsApp().whiteColor,
     ),
     actions: [
       GestureDetector(

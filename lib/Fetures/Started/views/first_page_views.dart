@@ -1,10 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:projucts_helper/Fetures/Started/views/system_secret.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../path.dart';
 
 class FirstPageViews extends StatelessWidget {
-  const FirstPageViews({super.key});
+   FirstPageViews({super.key});
+    final Uri url = Uri.parse(
+    "https://play.google.com/store/apps/dev?id=6206543452590598359",
+  );
+
+  Future<void> _launchUrl() async {
+    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +84,7 @@ class FirstPageViews extends StatelessWidget {
                 children: [
                   FirstPageWidget(
                     ontap: () {
-                      Share.share("gorge", subject: "gorge");
+                      Share.share("https://play.google.com/store/apps/details?id=com.example.projucts_helper&pcampaignid=web_share", subject: "gorge");
                     },
                     text: "مشاركة التطبيق",
                     icon: Icon(Icons.share),
@@ -81,12 +92,7 @@ class FirstPageViews extends StatelessWidget {
                   ),
                   SizedBox(width: CustomSize().width(context) * 0.07),
                   FirstPageWidget(
-                    ontap: () {
-                      ErrorMessager.ErrorMessage(
-                        context,
-                        "سوف يتم اضفاتها لاحقا",
-                      );
-                    },
+                    ontap: ()=> launchUrl(url) ,
                     text: "تطبيقات اخري",
                     icon: Icon(Icons.window_rounded),
                     coloricon: ColorsApp().whiteColor,

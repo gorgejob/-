@@ -1,6 +1,17 @@
+import 'package:flutter/services.dart';
 import 'package:audio_service/audio_service.dart';
 import 'package:audio_session/audio_session.dart';
 import 'package:projucts_helper/path.dart';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
+
+Future<Uri> _assetToFileUri(String assetPath) async {
+  final byteData = await rootBundle.load(assetPath);
+  final tempDir = await getTemporaryDirectory();
+  final file = File('${tempDir.path}/${assetPath.split('/').last}');
+  await file.writeAsBytes(byteData.buffer.asUint8List());
+  return file.uri;
+}
 
 // كلاس للتحكم في الصوت والخلفية
 class AudioPlayerHandler extends BaseAudioHandler {
@@ -29,8 +40,16 @@ class AudioPlayerHandler extends BaseAudioHandler {
   // ✅ هنا نحدد المعلومات اللي هتظهر في الإشعار
   Future<void> setUrl(String path, String title) async {
     // نحمل الملف
-    await _player.setAsset(path);
+    try {
+      debugPrint("gorge Say: loading");
+      await _player.setAsset(path);
+      debugPrint("gorge Say: done");
+    } catch (E, S) {
+      debugPrint("gorge Say: ${E.runtimeType} - ${E.toString()}");
+      debugPrint("STACK TRACE:\n$S");
+    }
 
+    final arturi = await _assetToFileUri("assets/gorge3.jpg");
     // نحدث بيانات الأغنية اللي هتظهر في الإشعار
     mediaItem.add(
       MediaItem(
@@ -38,6 +57,7 @@ class AudioPlayerHandler extends BaseAudioHandler {
         album: varibles.NameProjuct,
         title: title,
         duration: _player.duration,
+        artUri: arturi,
       ),
     );
   }
@@ -90,8 +110,7 @@ class AudioPlayerHandler extends BaseAudioHandler {
   @override
   Future<void> skipToNext() async {
     // هنا ممكن تحط دالة nextSong من plyer.dart
-    if (_player.position.inSeconds.toDouble() ==
-        _player.duration) {
+    if (_player.position.inSeconds.toDouble() == _player.duration) {
       playere.nextSong();
     } else {
       _player.seek(_player.duration);
@@ -101,10 +120,10 @@ class AudioPlayerHandler extends BaseAudioHandler {
   @override
   Future<void> skipToPrevious() async {
     if (_player.position.inSeconds.toDouble() == 0) {
-              playere.backSong();
-            } else {
-              _player.seek(Duration.zero);
-            }
+      playere.backSong();
+    } else {
+      _player.seek(Duration.zero);
+    }
   }
 
   // 🧩 getter لتسهيل الوصول إلى المشغل

@@ -1,5 +1,6 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:projucts_helper/Data/audio_handler.dart';
+import 'package:projucts_helper/Data/hive.dart';
 import '../../../path.dart';
 
 late AudioPlayerHandler audioHandler;
@@ -14,7 +15,8 @@ Future<void> main() async {
       androidStopForegroundOnPause: true,
     ),
   );
-
+  await InitHive.init();
+  await InitHive.check();
   runApp(const MyApp());
 }
 
@@ -35,7 +37,7 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       title: 'Audio Service Demo',
-      home: const FirstPageViews(),
+      home:  SplashViews(),
     );
   }
 }

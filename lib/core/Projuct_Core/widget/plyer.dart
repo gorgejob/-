@@ -1,19 +1,32 @@
 import 'package:projucts_helper/core/Projuct_Core/index.dart';
+import 'package:projucts_helper/core/model/hide.dart';
 import 'package:projucts_helper/core/model/musicapp.dart';
 import 'package:projucts_helper/main.dart';
 
 class playere {
   static Future<void> nextSong() async {
+    Index.indexs = Index.indexs + 1;
     late int cursentIndex = Index.indexs;
     {
-      audioHandler.setUrl(Musicapp.Music[cursentIndex].Url , Musicapp.Music[cursentIndex ].Name);
+      await audioHandler.setUrl(
+        gorgelistgorge.listg[cursentIndex].Url,
+        gorgelistgorge.listg[cursentIndex].Name,
+      );
     }
   }
 
   static Future<void> backSong() async {
+    Index.indexs = Index.indexs - 1;
+    if(Index.indexs == -1){
+      Index.indexs = Musicapp.Music.length - 1;
+    }
+
     late int cursentIndex = Index.indexs;
     if (cursentIndex != 0) {
-      audioHandler.setUrl(Musicapp.Music[cursentIndex - 1].Url , Musicapp.Music[cursentIndex -1].Name);
+      await audioHandler.setUrl(
+        gorgelistgorge.listg[cursentIndex].Url,
+        gorgelistgorge.listg[cursentIndex].Name,
+      );
     } else {}
   }
 }

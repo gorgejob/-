@@ -1,10 +1,6 @@
-import 'dart:developer';
-
 class Index {
-  static var indexs;
+  static var indexs =0;
   static Future<void> save(int index) async {
-    log(index.toString());
     indexs = index;
   }
-
 }
